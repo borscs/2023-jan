@@ -2,6 +2,9 @@ import './App.css';
 import ExpensiveItem from "./components/Expenses/ExpensiveItem";
 import Card from "./components/UI/Card";
 import './components/Expenses/Expenses.css';
+import NewExpense from "./components/NewExpense/NewExpense";
+import {useState} from "react";
+import Expenses from "./components/Expenses/Expenses";
 
 const EXPENSES = [
     {
@@ -26,20 +29,16 @@ const EXPENSES = [
 ];
 
 function App() {
-    const number = 1;
+    const [expenses, setExpenses] = useState(EXPENSES);
+
+    const addExpense = (expense) => {
+        setExpenses([...expenses, expense]);
+    }
 
     return (
         <div>
-            <h2>Les't get {number} </h2>
-            <Card className="expenses">
-            {EXPENSES.map(item => (
-                <ExpensiveItem
-                    title={item.title}
-                    amount={item.amount}
-                    date={item.date}
-                />
-            ))}
-            </Card>
+            <NewExpense addExpense={addExpense}/>
+            <Expenses expenses={expenses}/>
         </div>
     );
 }
