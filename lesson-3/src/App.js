@@ -3,7 +3,7 @@ import ExpensiveItem from "./components/Expenses/ExpensiveItem";
 import Card from "./components/UI/Card";
 import './components/Expenses/Expenses.css';
 import NewExpense from "./components/NewExpense/NewExpense";
-import {useState} from "react";
+import {useState, Fragment} from "react";
 import Expenses from "./components/Expenses/Expenses";
 
 const EXPENSES = [
@@ -36,10 +36,10 @@ function App() {
     }
 
     return (
-        <div>
+        <Fragment>
             <NewExpense addExpense={addExpense}/>
             <Expenses expenses={expenses}/>
-        </div>
+        </Fragment>
     );
 }
 
