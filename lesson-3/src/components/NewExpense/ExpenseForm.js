@@ -46,9 +46,8 @@ const ExpenseForm = (props) => {
         setAmount(amountRef.current.value);
         setDate(dateRef.current.value);
         setTitle(titleRef.current.value);
-        console.log(titleRef.current.value, title);
 
-        if(title.trim().length === 0 || amount <= 0.02){
+        if(titleRef.current.value.trim().length === 0 || amount <= 0.02){
             setError({
                 title: 'Invalid Input',
                 message: 'Please enter correct data',
@@ -57,17 +56,17 @@ const ExpenseForm = (props) => {
         }
 
         const expenseData = {
-            title: title,
-            amount: amount,
-            date: new Date(date),
+            title: titleRef.current.value,
+            amount: amountRef.current.value,
+            date: new Date(dateRef.current.value),
             id: Math.random().toString(),
         }
 
 
         props.addExpense(expenseData);
-        setDate('');
-        setAmount('');
-        setTitle('');
+        dateRef.current.value = null;
+        amountRef.current.value ='';
+        titleRef.current.value ='';
 
     }
 
