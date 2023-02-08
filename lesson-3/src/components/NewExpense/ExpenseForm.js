@@ -5,9 +5,9 @@ import ErrorModal from "../UI/ErrorModal";
 
 
 const ExpenseForm = (props) => {
-    const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState('');
-    const [date, setDate] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [amount, setAmount] = useState('');
+    // const [date, setDate] = useState('');
     const [error, setError] = useState(null);
 
     const titleRef = useRef();
@@ -27,7 +27,6 @@ const ExpenseForm = (props) => {
     //     })
     //     console.log(userInput);
     // }
-
     // const titleChangeHandler = (event) => {
     //     setTitle(event.target.value);
     // }
@@ -42,13 +41,8 @@ const ExpenseForm = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log(titleRef);
-        setAmount(amountRef.current.value);
-        setDate(dateRef.current.value);
-        setTitle(titleRef.current.value);
-        console.log(titleRef.current.value, title);
 
-        if(title.trim().length === 0 || amount <= 0.02){
+        if(titleRef.current.value.trim().length === 0 || amountRef.current.value <= 0.02){
             setError({
                 title: 'Invalid Input',
                 message: 'Please enter correct data',
@@ -57,18 +51,18 @@ const ExpenseForm = (props) => {
         }
 
         const expenseData = {
-            title: title,
-            amount: amount,
-            date: new Date(date),
+            title: titleRef.current.value,
+            amount: amountRef.current.value,
+            date: new Date(dateRef.current.value),
             id: Math.random().toString(),
         }
 
 
         props.addExpense(expenseData);
-        setDate('');
-        setAmount('');
-        setTitle('');
 
+        titleRef.current.value = '';
+        amountRef.current.value = '';
+        dateRef.current.value = null;
     }
 
     const onConfirm = () => {
