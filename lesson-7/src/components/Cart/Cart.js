@@ -7,6 +7,13 @@ import CartItem from "./CartItem";
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
 
+    const cartItemAddHandler = (item) => {
+        cartCtx.addItem({...item, amount: 1})
+    }
+
+    const cartItemRemoveHandler = (id) => {
+        cartCtx.removeItem(id)
+    }
 
     const cartItems = (
         <ul className={classes['cart--items']}>
@@ -16,8 +23,8 @@ const Cart = (props) => {
                     name={item.name}
                     amount={item.amount}
                     price={item.price}
-                    onRemove={() => {}}
-                    onAdd={() => {}}/>
+                    onRemove={cartItemRemoveHandler.bind(null, item.id)}
+                    onAdd={cartItemAddHandler.bind(null, item)}/>
             ))}
         </ul>
     )
@@ -26,7 +33,7 @@ const Cart = (props) => {
             {cartItems}
             <div className={classes.total}>
                 <span>Total Amount</span>
-                <span>{cartCtx.totalAmount}</span>
+                <span>{cartCtx.totalAmount.toFixed(2)}</span>
             </div>
             <div className={classes.actions}>
                 <button className={classes['button--alt']} onClick={props.onClose}>Close</button>
